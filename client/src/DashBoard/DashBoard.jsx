@@ -37,7 +37,7 @@ function Dashboard() {
   const [lastEightCounts, setLastSevenCounts] = useState([]);
   const [growth, setGrowth] = useState();
 
-  const URL = "http://localhost:1111";
+  const URL = "https://track-it-backend.vercel.app";
 
   const date = new Date();
   const day = date.getDate();
