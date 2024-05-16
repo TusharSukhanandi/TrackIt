@@ -134,11 +134,11 @@ function Dashboard() {
   };
 
   
-  const handleAddCountClose = () => {
-    if(countDiv){
-    setCountDiv(false);
-    }
-  };
+  // const handleAddCountClose = () => {
+  //   if(countDiv){
+  //   setCountDiv(false);
+  //   }
+  // };
 
 
   let prevDate = [];
