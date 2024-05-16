@@ -96,7 +96,7 @@ app.get("/getBlue/:id", async (req, res) => {
   }
 });
 
-app.put("/update/:id", async (req, res) => {
+app.post("/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { exercises } = req.body;
