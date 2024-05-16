@@ -227,7 +227,7 @@ function Dashboard() {
   }, [allData]);
 
   return (
-    <div onClick={handleAddCountClose} className="dashboard">
+    <div className="dashboard">
       <div className="header">TrackIt</div>
 
       <div className="top">
