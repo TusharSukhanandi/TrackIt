@@ -6,14 +6,14 @@ const app = express();
 
 app.use(cors(
   {
-    // origin : ["*"],
+    origin : ["https://track-it-alpha-nine.vercel.app"],
     methods: ["POST", "GET", "PUT"],
     credentials: true
   }
 ));
 app.use(express.json());
 
-app.listen(1111, () => {
+app.listen(() => {
   console.log("sever is alive");
 });
 
