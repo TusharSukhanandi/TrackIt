@@ -106,7 +106,7 @@ app.put("/update/:id", async (req, res) => {
       { exercises: exercises }
     );
     res.json(updatedDocument);
-    console.log(updatedDocument);
+    console.log(updatedDocument.exercises);
   } catch (err) {
     res.json(err);
   }
