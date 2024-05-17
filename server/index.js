@@ -97,6 +97,8 @@ app.get("/getBlue/:id", async (req, res) => {
 });
 
 app.put("/update/:id", async (req, res) => {
+    console.log("new exe updating")
+
   try {
     const { id } = req.params;
     const { exercises } = req.body;
@@ -113,6 +115,8 @@ app.put("/update/:id", async (req, res) => {
 });
 
 app.put("/fullData", async (req, res) => {
+    console.log("new counts updating")
+
   const data = req.body;
   const { date } = data;
   const { user } = data;
@@ -134,6 +138,8 @@ app.put("/fullData", async (req, res) => {
       );
       console.log("updated exe");
     }
+        console.log("updated exe");
+
   } catch (err) {
     res.json(err);
 
