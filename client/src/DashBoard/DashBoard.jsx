@@ -87,7 +87,7 @@ function Dashboard() {
       };
 
       axios
-        .put(`${URL}/update/${id}`, updatedata)
+        .post(`${URL}/update/${id}`, updatedata)
         .then((res) => setData(res.data))
         .catch((err) => console.log(err));
 
