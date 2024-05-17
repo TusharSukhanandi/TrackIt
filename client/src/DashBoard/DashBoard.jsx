@@ -87,7 +87,7 @@ function Dashboard() {
       };
 
       axios
-        .post(`${URL}/update/${id}`, updatedata)
+        .put(`${URL}/update/${id}`, updatedata)
         .then((res) => setData(res.data))
         .catch((err) => console.log(err));
 
@@ -101,7 +101,7 @@ function Dashboard() {
       date: { day: day, month: month, year: year },
     };
     axios
-      .post(`${URL}/fullData`, updateDate)
+      .put(`${URL}/fullData`, updateDate)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
