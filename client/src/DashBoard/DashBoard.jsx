@@ -37,7 +37,7 @@ function Dashboard() {
   const [lastEightCounts, setLastSevenCounts] = useState([]);
   const [growth, setGrowth] = useState();
 
-  const URL = "https://track-it-backend.vercel.app";
+  const URL = "http://localhost:1111";
 
   const date = new Date();
   const day = date.getDate();
@@ -87,11 +87,8 @@ function Dashboard() {
       };
 
       axios
-        .post(`${URL}/update/` + id, updatedata)
-        .then((res) => {
-          setData(res.data)
-          console.log(res.data)
-        })
+        .put(`${URL}/update/${id}`, updatedata)
+        .then((res) => setData(res.data))
         .catch((err) => console.log(err));
 
       location.reload();
@@ -137,11 +134,11 @@ function Dashboard() {
   };
 
   
-  // const handleAddCountClose = () => {
-  //   if(countDiv){
-  //   setCountDiv(false);
-  //   }
-  // };
+  const handleAddCountClose = () => {
+    if(countDiv){
+    setCountDiv(false);
+    }
+  };
 
 
   let prevDate = [];
@@ -230,7 +227,7 @@ function Dashboard() {
   }, [allData]);
 
   return (
-    <div className="dashboard">
+    <div onClick={handleAddCountClose} className="dashboard">
       <div className="header">TrackIt</div>
 
       <div className="top">
