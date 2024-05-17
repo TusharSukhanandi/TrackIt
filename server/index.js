@@ -106,7 +106,7 @@ app.put("/update/:id", async (req, res) => {
       { exercises: exercises }
     );
     res.json(updatedDocument);
-    console.log(updatedDocument.exercises);
+    console.log("new exe updated");
   } catch (err) {
     res.json(err);
   }
@@ -132,6 +132,7 @@ app.put("/fullData", async (req, res) => {
         { date, user },
         { exercises: exercises }
       );
+      console.log("updated exe");
     }
   } catch (err) {
     res.json(err);
