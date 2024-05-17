@@ -106,6 +106,7 @@ app.put("/update/:id", async (req, res) => {
       { exercises: exercises }
     );
     res.json(updatedDocument);
+    console.log(updatedDocument);
   } catch (err) {
     res.json(err);
   }
@@ -141,11 +142,11 @@ app.put("/fullData", async (req, res) => {
 app.post("/all", async (req, res) => {
   const { user } = req.body;
   const { month } = req.body;
-  console.log(user);
+  
   try {
     if (user != "") {
       const check = await exercisesModel.find({ user, "date.month": month });
-      // console.log(check)
+      console.log(check)
       res.json(check);
     }
   } catch (err) {
