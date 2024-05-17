@@ -133,13 +133,6 @@ function Dashboard() {
     setCountDiv(!countDiv);
   };
 
-  
-  const handleAddCountClose = () => {
-    if(countDiv){
-    setCountDiv(false);
-    }
-  };
-
 
   let prevDate = [];
   let prevCount = [];
@@ -227,7 +220,7 @@ function Dashboard() {
   }, [allData]);
 
   return (
-    <div onClick={handleAddCountClose} className="dashboard">
+    <div className="dashboard">
       <div className="header">TrackIt</div>
 
       <div className="top">
