@@ -96,7 +96,7 @@ app.get("/getBlue/:id", async (req, res) => {
   }
 });
 
-app.post("/update/:id", async (req, res) => {
+app.put("/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { exercises } = req.body;
@@ -111,7 +111,7 @@ app.post("/update/:id", async (req, res) => {
   }
 });
 
-app.post("/fullData", async (req, res) => {
+app.put("/fullData", async (req, res) => {
   const data = req.body;
   const { date } = data;
   const { user } = data;
