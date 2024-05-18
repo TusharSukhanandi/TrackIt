@@ -105,7 +105,8 @@ app.put("/update/:id", async (req, res) => {
 
     const updatedDocument = await bluePrintExercisesModel.findByIdAndUpdate(
       id,
-      { exercises: exercises }
+      { exercises: exercises },
+      { new: true }
     );
     res.json(updatedDocument);
     console.log("new exe updated");
