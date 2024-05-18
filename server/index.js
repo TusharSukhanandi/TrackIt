@@ -153,7 +153,6 @@ app.post("/all", async (req, res) => {
   try {
     if (user != "") {
       const check = await exercisesModel.find({ user, "date.month": month });
-      console.log(check)
       res.json(check);
     }
   } catch (err) {
