@@ -109,7 +109,7 @@ function Dashboard() {
 
     setCountDiv(!countDiv);
 setTimeout(() => {
-location.relode()
+location.reload()
 }, 1000)
     
   };
