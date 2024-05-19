@@ -91,9 +91,9 @@ function Dashboard() {
         .then((res) => setData(res.data))
         .catch((err) => console.log(err));
 
-      setTimeout(() => {
-location.relode()
-}, 1000)
+   setTimeout(() =>{location.reload
+}, 1000);
+
     }
   };
 
