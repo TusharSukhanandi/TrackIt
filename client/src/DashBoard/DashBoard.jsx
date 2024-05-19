@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+isimport { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import "./DashBoard.css";
@@ -91,7 +91,9 @@ function Dashboard() {
         .then((res) => setData(res.data))
         .catch((err) => console.log(err));
 
-      
+      setTimeout(() => {
+location.relode()
+}, 1000)
     }
   };
 
@@ -106,7 +108,9 @@ function Dashboard() {
       .catch((err) => console.log(err));
 
     setCountDiv(!countDiv);
-
+setTimeout(() => {
+location.relode()
+}, 1000)
     
   };
 
