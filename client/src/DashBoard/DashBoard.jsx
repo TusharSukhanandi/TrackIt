@@ -37,7 +37,7 @@ function Dashboard() {
   const [lastEightCounts, setLastSevenCounts] = useState([]);
   const [growth, setGrowth] = useState();
 
-  const URL = "https://trackit-pvzw.onrender.com";
+  const URL = "https://track-it-backend.vercel.app";
 
   const date = new Date();
   const day = date.getDate();
