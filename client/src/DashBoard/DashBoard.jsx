@@ -91,7 +91,7 @@ function Dashboard() {
         .then((res) => setData(res.data))
         .catch((err) => console.log(err));
 
-      location.reload();
+      
     }
   };
 
@@ -107,7 +107,7 @@ function Dashboard() {
 
     setCountDiv(!countDiv);
 
-    location.reload();
+    
   };
 
   useEffect(() => {
