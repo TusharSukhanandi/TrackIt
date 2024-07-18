@@ -56,8 +56,8 @@ function Dashboard() {
     "December",
   ];
   const prevMonth = months[date.getMonth() - 1];
-  // const month = months[date.getMonth()];
-  const month = "May";
+ const month = months[date.getMonth()];
+  // const month = "May";
 
   const year = date.getFullYear();
   const perfectDate = month + " " + day + "," + year;
