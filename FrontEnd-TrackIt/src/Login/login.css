@@ -1,0 +1,270 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background-image: linear-gradient(#36454F, black 60%);
+}
+
+.header {
+    width: 100%;
+    height: 15vh;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-family: "Kanit", sans-serif;
+    font-weight: 800;
+    background-color: transparent;
+}
+
+.sign-container {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 200px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+
+}
+
+
+
+.signIn-container {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+
+
+.signUp-container {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+
+.signUp-container.open {
+    width: 100%;
+    height: 400px;
+}
+
+.signIn-container.open {
+    width: 100%;
+    height: 400px;
+}
+
+
+@media (min-width: 768px) {
+    .sign-container {
+        width: 50%;
+        height: auto;
+        padding: 20px 0;
+        margin: auto;
+    }
+
+    
+.signUp-container.open {
+    width: 100%;
+    height: 350px;
+}
+
+.signIn-container.open {
+    width: 100%;
+    height: 330px;
+}
+}
+
+.signUpTitle,
+.signInTitle {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.signUp,
+.signIn {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    border-radius: 20px;
+    color: white;
+    border-bottom: 3px solid white;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    background: transperent;
+
+}
+
+form {
+    width: 100%;
+}
+
+.password,
+.name {
+    width: 85%;
+    margin: auto;
+}
+
+.input-Login {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background: transparent;
+    border-bottom: 2px solid white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    margin-bottom: 25px;
+}
+
+
+.confirm-password {
+    width: 85%;
+    text-align: center;
+    padding: 5px;
+    background: transparent;
+    border-bottom: 2px solid white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.input-Login::placeholder,
+.confirm-password::placeholder {
+    color: rgba(255, 255, 255, .5);
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+.newAc {
+    font-size: .7rem;
+    font-style: italic;
+    cursor: pointer;
+}
+
+.done {
+
+    padding: 10px 30px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: .5s;
+}
+
+.done:hover {
+    background-color: wheat;
+    color: black;
+    font-weight: bold;
+
+}
+
+.password {
+    position: relative;
+}
+
+.eye {
+    position: absolute;
+    background: transparent;
+    border: none;
+    right: 5%;
+    top: 30%;
+    transform: translateY(-50%);
+
+}
+
+.eye i {
+    font-size: 1.2rem;
+    color: white;
+}
+
+
+.error {
+    color: white;
+    font-size: .8rem;
+}
+
+.valid {
+    color: white;
+    margin-top: 20px;
+}
+
+.loading{
+    background-color: rgba(0, 0, 0, 0.548);
+    color: white;
+    position: absolute;
+    width: 100%;
+    he`ight: 100vh;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    font-size: 3rem;
+}
+
+.bar{
+    width: 20px;
+    height: 0px;
+    background-color: white;
+}
+
+.bar.open{
+    animation: load 2s infinite;
+}
+
+.bar:nth-child(1){
+    animation-delay: 200ms;
+}
+
+.bar:nth-child(2){
+
+    animation-delay: 400ms;
+}
+
+.bar:nth-child(3){
+   
+    animation-delay: 600ms;
+}
+
+@keyframes load{
+
+0%{
+    height: 0px;
+}
+50%{
+    height: 30px;
+}
+0%{
+    height: 0px;
+}
+}

@@ -1,0 +1,411 @@
+
+.dashboard {
+    min-height: 100vh;
+    background-image: linear-gradient(#36454F ,black 30%);
+    color: white;
+    font-family: poppins;
+    padding-bottom: 50px;
+   
+}
+
+
+.header{
+    width: 100%;
+    height: 15vh;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    font-size: 2rem;
+    font-family: "Kanit", sans-serif;
+    font-weight: 800;
+   background-color: transparent;
+}
+
+.top {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.greeting {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.graphAndStates, .twoMonths{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.month-year{
+        font-size: 1.5rem;
+        margin-bottom: 0px;
+}
+
+.oneMonthBlock {
+    width: 95%;
+    height: auto;
+    background-image: linear-gradient(to right, rgb(63, 63, 63) ,black 50%);
+    border: 2px solid white;
+    border-radius: 10px;
+    margin: 50px auto 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.bottom {
+    width: 100%;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.left {
+    min-width: 30%;
+
+}
+
+
+.exerciseName {
+    margin-bottom: 5px;
+}
+
+.datesTitle {
+    padding-bottom: 20px;
+    color: rgb(153, 251, 239);
+    font-weight: bold;
+    font-size: 1rem;;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.dates {
+    padding-bottom: 20px;
+    color: rgb(153, 251, 239);
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+
+@media (orientation : landscape) {
+    .oneMonthBlock {
+        font-size: .7rem;
+    }
+
+    .exerciseName {
+        margin-bottom: 5px;
+    }
+
+    .datesTitle {
+        padding-bottom: 10px;
+    
+    }
+
+    .dates {
+        padding-bottom: 10px;
+       
+    }
+
+}
+
+.newExercise{
+    margin-top: 20px;
+}
+
+.newExercise input{
+    width: 55%;
+    padding: 5px;
+    background: transparent;
+    border-bottom: 2px solid white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    margin-right: 10px;
+    font-size: .7rem;
+}
+
+
+.newExercise input::placeholder{
+    color: rgba(255, 255, 255, .5);
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+.newExercise button{
+    padding: 5px 15px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 30px;
+    color: white;
+    border: 2px solid white;
+    font-size: .7rem;
+    transition: .5s;
+}
+
+.flexRight {
+    width: 80%;
+    overflow-x: scroll;
+}
+
+.flexRight::-webkit-scrollbar {
+    display: none;
+}
+
+.right {
+    text-align: center;
+    display: flex;
+    gap: 20px;
+}
+
+.count {
+    margin-bottom: 5px;
+}
+
+.input-exe{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.input-exe div{
+    width: 100%;
+}
+
+.addCountsClose{
+    display: none;
+}
+
+.addCountCon{
+    background-color: rgba(0, 0, 0, 0.548);
+    color: white;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.addCounts {
+    width: 70%;
+    min-height: auto;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: linear-gradient(rgb(43, 43, 43) ,black 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 20px;
+    border: 3px solid white;
+    padding: 20px;
+   
+}
+
+.addCounts input{
+    width: 70%;
+    text-align: center;
+    padding: 5px;
+    background: transparent;
+    border-bottom: 2px solid white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+}
+
+.close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+   border: none;
+   color: white;
+   border-radius: 20px;
+   font-size: 2rem;
+  
+}
+
+@media (orientation : landscape){
+    .close{
+        cursor: pointer;
+    }
+
+    .btns button i{
+          cursor: pointer;
+    }
+
+    .newExercise button{
+        cursor: pointer;
+    }
+
+    .text{
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .btns button {
+        cursor: pointer;
+    }
+}
+
+.addCounts input::placeholder{
+    color: rgba(255, 255, 255, .5);
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+.addCounts input::-webkit-outer-spin-button,
+.addCounts input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.save{
+    margin-top: 15px;
+    padding: 5px 20px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    border: 2px solid white;
+    font-size: .7rem;
+    transition: .5s;
+}
+
+
+.btns button {
+    height: 100%;
+    background-color: transparent;
+    border-radius: 30px;
+    color: white;
+    font-size: 2rem;
+    border: none;
+}
+
+.noData{
+    font-size: 1.2rem;
+    color: rgb(153, 251, 239);  
+}
+
+.titleAndGraph{
+    width: 95%;
+    margin: auto;
+}
+
+.graphName{
+    display: flex;
+    overflow: scroll;
+    gap: 10px;
+    align-items: center;
+    margin: 30px auto 0;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.text{
+    background: linear-gradient(rgb(43, 43, 43) ,black 100%);
+    width: 100px;
+    border-radius: 20px;
+    padding: 5px;
+    font-size: .7rem;
+    transition: .5s;
+    font-weight: bold;
+    user-select: none;
+}
+
+.text:hover{
+background: linear-gradient(rgb(43, 43, 43) ,black 30%);
+font-family: poppins;
+font-size: .8rem;
+
+}
+
+.graphName::-webkit-scrollbar {
+    display: none;
+}
+
+
+.graph{
+    width: 100%;
+    margin: 30px auto -10PX;
+    background-image: linear-gradient( black,rgb(43, 43, 43) 100%);
+   border-radius: 10px;
+   border: 2px solid white;
+   padding: 20px 10px 10px;
+   position: relative;
+}
+
+
+
+@media (min-width: 768px) {
+    .oneMonthBlock {
+      width: 40%; 
+    }
+
+    .graph{
+        width: 80%;
+    }
+ 
+}
+
+.states{
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: .9rem;
+  }
+
+  .states i{
+    transform: rotate(45deg);
+    color: white;
+  }
+
+
+@media (min-width: 768px) {
+    .titleAndGraph {
+      width: 60%;
+      margin: auto;
+    }
+
+}
+
+.save:hover{
+    background-color: wheat;
+    color: black;
+    transform: scale(1.1);
+}
+
+
+.save button:focus{
+    transform: scale(.9);
+}
+
+
+.newExercise button:hover{
+    background-color: wheat;
+    color: black;
+    transform: scale(1.1);
+}
+
+
+.newExercise button:focus{
+    transform: scale(.9);
+}
