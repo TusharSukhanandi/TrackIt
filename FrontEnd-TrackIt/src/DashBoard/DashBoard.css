@@ -409,3 +409,17 @@ font-size: .8rem;
 .newExercise button:focus{
     transform: scale(.9);
 }
+
+.logout{
+    margin: 15px;
+    padding: 5px 20px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    border: 2px solid white;
+    font-size: .7rem;
+    transition: .5s;
+    position: absolute;
+}

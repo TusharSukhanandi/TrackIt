@@ -11,7 +11,7 @@ const exercisesSchema = new mongoose.Schema({
    },
     date : {
         day : {type : Number, require : true},
-        month : {type : String, require : true},
+        month : {type : Number, require : true},
         year : {type : Number, require : true}
     },
     exercises : [allExercisesSchema]

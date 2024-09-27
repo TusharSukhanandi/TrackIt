@@ -1,8 +1,8 @@
 import { useEffect, useState, useref } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 import "./DashBoard.css";
 import { Line } from "react-chartjs-2";
+import { useUserContext } from "../context/UserContext.jsx";
 
 import {
   Chart as ChartJS,
@@ -28,19 +28,23 @@ ChartJS.register(
 function Dashboard() {
   const [data, setData] = useState();
   const [newExercise, setNewExercise] = useState("");
-  const [count, setCount] = useState();
-  const [allData, SetAllData] = useState();
+  const [allExerciseData, SetAllExerciseData] = useState();
   const [prevAllData, SetPrevAllData] = useState();
   const [countDiv, setCountDiv] = useState(false);
   const [lastSevenDates, setlastSevenDates] = useState([]);
   const [lastEightExerciseName, setLastEightExerciseName] = useState("");
   const [lastEightCounts, setLastSevenCounts] = useState([]);
   const [growth, setGrowth] = useState();
+  const [count, setCount] = useState([])
 
   const URL = "http://localhost:1111";
 
   const date = new Date();
   const day = date.getDate();
+
+  const month = date.getMonth() + 1;
+  console.log(month);
+
   const months = [
     "January",
     "February",
@@ -55,23 +59,37 @@ function Dashboard() {
     "November",
     "December",
   ];
-  const prevMonth = months[date.getMonth() - 1];
-  // const month = months[date.getMonth()];
-  const month = "May";
+
+  const monthName = months[date.getMonth()];
+  const prevMonthName = months[date.getMonth() - 1];
 
   const year = date.getFullYear();
-  const perfectDate = month + " " + day + "," + year;
+  const perfectDate = monthName + " " + day + "," + year;
 
-  let id = "";
+  const { user, setUser } = useUserContext();
+  console.log(user);
 
-  const inheritData = useLocation();
-  id = inheritData.state.data._id;
+  let id = user._id;
 
   useEffect(() => {
-    axios
-      .get(`${URL}/exercise/getBlue/` + id)
-      .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
+    const fetchBluePrintOfExercices = async () => {
+      try {
+        console.log(id);
+        console.log(user._id);
+
+        const response = await axios.get(
+          `${URL}/exercise/getBlue/` + user._id,
+          { withCredentials: true }
+        );
+        console.log(response.data);
+
+        setData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchBluePrintOfExercices();
   }, []);
 
   const handleAdd = () => {
@@ -86,12 +104,20 @@ function Dashboard() {
         exercises: updatedExercise,
       };
 
-      axios
-        .put(`${URL}/exercise/update/${id}`, updatedata)
-        .then((res) => setData(res.data))
-        .catch((err) => console.log(err));
+      const addNewExercice = async () => {
+        try {
+          const response = await axios.put(
+            `${URL}/exercise/update/${id}`,
+            updatedata,
+            { withCredentials: true }
+          );
+          setData(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
-      location.reload();
+      addNewExercice();
     }
   };
 
@@ -100,35 +126,47 @@ function Dashboard() {
       ...data,
       date: { day: day, month: month, year: year },
     };
-    console.log(updateDate)
-    axios
-      .post(`${URL}/fullData`, updateDate)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    const updateCounts = async () => {
+      try {
+        const response = await axios.put(`${URL}/exercise/updateCounts`, updateDate, {
+          withCredentials: true,
+        });
+        const newArray = [...allExerciseData];
+        newArray[0] = response.data;
+
+        SetAllExerciseData(newArray);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    updateCounts();
 
     setCountDiv(!countDiv);
-
-    location.reload();
   };
 
   useEffect(() => {
-    let userName = inheritData.state.data.userName;
-    
-    axios
-      .post(`${URL}/all`, { userName, month })
-      .then((res) => {
-        const reversedData = res.data.reverse();
-        SetAllData(reversedData);
-      })
-      .catch((err) => console.log(err));
+    let userName = user.userName;
 
-    axios
-      .post(`${URL}/all`, { userName, prevMonth })
-      .then((res) => {
-        const reversedData = res.data.reverse();
-        SetPrevAllData(reversedData);
-      })
-      .catch((err) => console.log(err));
+    const fetchExercicesData = async () => {
+      try {
+        const response = await axios.post(
+          `${URL}/exercise/exerciseCounts`,
+          { month },
+          { withCredentials: true }
+        );
+
+        const reversedExerciseData = response.data.exercises.reverse();
+        const previosReversedExerciseData =
+          response.data.previousMonthExercises.reverse();
+        SetAllExerciseData(reversedExerciseData);
+        SetPrevAllData(previosReversedExerciseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchExercicesData();
   }, []);
 
   const handleAddCount = () => {
@@ -139,8 +177,8 @@ function Dashboard() {
   let prevCount = [];
 
   const handleChoose = (index) => {
-    if (allData && allData.length > 0) {
-      const lastEight = allData.slice(0, 7).reverse();
+    if (allExerciseData && allExerciseData.length > 0) {
+      const lastEight = allExerciseData.slice(0, 7).reverse();
 
       lastEight.map((each) => {
         if (each.exercises[index] !== undefined) {
@@ -218,16 +256,35 @@ function Dashboard() {
 
   useEffect(() => {
     handleChoose(0);
-  }, [allData]);
+  }, [allExerciseData]);
+
+  const handleLogOut = async () => {
+    try {
+      const response = await axios.post(
+        `${URL}/auth/logOut`,
+        {},
+        { withCredentials: true }
+      );
+
+      if (response.data) {
+        localStorage.clear("TrackIt-User");
+        setUser("");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="dashboard">
+      <button class="logout" onClick={handleLogOut}>
+        log out
+      </button>
       <div className="header">TrackIt</div>
-
       <div className="top">
         <div className="greeting">Hey, {data && data.userName}</div>
         <div className="top-date">
-          {month}&nbsp;{day},&nbsp;{year}
+          {monthName}&nbsp;{day},&nbsp;{year}
         </div>
       </div>
 
@@ -253,38 +310,42 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="addCountCon">
-        <div className={countDiv ? "addCounts" : "addCountsClose"}>
-          <p style={{ marginBottom: "20px" }}>
-            {month}&nbsp;{day},&nbsp;{year}
-          </p>
+      <div className={countDiv ? "addCounts" : "addCountsClose"}>
+        <p style={{ marginBottom: "20px" }}>
+          {monthName}&nbsp;{day},&nbsp;{year}
+        </p>
 
-          {data &&
-            data.exercises.map((exercise, index) => (
-              <div className="input-exe" key={index}>
-                <div>{exercise.exerciseName}</div>
-                <div>
-                  <input
-                    type="number"
-                    placeholder="count"
-                    onChange={(e) => (exercise.count = e.target.valueAsNumber)}
-                  />
-                </div>
+        {data &&
+          data.exercises.map((exercise, index) => (
+            <div className="input-exe" key={index}>
+              <div>{exercise.exerciseName}</div>
+              <div>
+                <input
+                  type="number"
+                  placeholder="count"
+                  onChange={(e) => {
+                    exercise.count = e.target.valueAsNumber;
+                    const newCount = [...count]; // Create a copy of the count array
+                    newCount[index] = e.target.valueAsNumber || 0; // Update the corresponding index
+                    setCount(newCount); // Set the new count array using the setter function
+                  }}
+                  value={count[index] || ''}
+                />
               </div>
-            ))}
-          <button className="save" onClick={handleSave}>
-            SAVE
-          </button>
-          <button className="close" onClick={handleAddCount}>
-            <i className="fa-solid fa-circle-left"></i>
-          </button>
-        </div>
+            </div>
+          ))}
+        <button className="save" onClick={handleSave}>
+          SAVE
+        </button>
+        <button className="close" onClick={handleAddCount}>
+          <i className="fa-solid fa-circle-left"></i>
+        </button>
       </div>
 
       <div className="twoMonths">
         <div className="oneMonthBlock">
           <div className="month-year">
-            <span>{month}, </span>
+            <span>{monthName}, </span>
             <span>{year}</span>
           </div>
           <br></br>
@@ -316,11 +377,11 @@ function Dashboard() {
                     <i className="fa-solid fa-square-plus"></i>
                   </button>
                 </div>
-                {allData == "" ? (
+                {allExerciseData == "" ? (
                   <div className="noData">Add Today's Sets 💪</div>
                 ) : (
-                  allData &&
-                  allData.map((oneData, index) => (
+                  allExerciseData &&
+                  allExerciseData.map((oneData, index) => (
                     <div key={index}>
                       <div className="dates">{oneData.date.day}</div>
                       <div className="counts">
@@ -340,7 +401,7 @@ function Dashboard() {
 
         <div className="oneMonthBlock">
           <div className="month-year">
-            <span>{prevMonth}, </span>
+            <span>{prevMonthName}, </span>
             <span>{year}</span>
             <span>&nbsp;(Last Month)</span>
           </div>

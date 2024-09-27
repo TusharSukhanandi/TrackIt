@@ -1,15 +1,20 @@
+import User from "../../Models/user.model.js";
+
 const updateExercise = async (req, res) => {
    
       try {
         const { id } = req.params;
         const { exercises } = req.body;
     
+        console.log({id, exercises});
+        
+
         const updatedDocument = await User.findByIdAndUpdate(
           id,
           { exercises: exercises },
           { new: true }
-        );
-        res.json(updatedDocument);
+        ).select("-password");
+        return res.json(updatedDocument);
 
       } catch (err) {
         res.json(err);

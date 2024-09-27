@@ -2,13 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./login.css";
-import { useNavigate } from "react-router-dom";
 import ReflctionCreation from "../ReflctionCreation/ReflctionCreation";
-// import { connection } from "mongoose";
+import { useUserContext } from "../context/UserContext";
 
 function Login() {
-  const toDashboard = useNavigate();
-
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userConfirmPassword, setUserConfirmPassword] = useState("");
@@ -20,31 +17,31 @@ function Login() {
 
   const URL = "http://localhost:1111";
 
+  const { setUser } = useUserContext();
+
   const handleUserAuth = async () => {
     setIsloading(true);
     try {
-
-    
       const res = await axios.post(`${URL}/auth/logIn`, {
         userName: userName,
         password: userPassword,
-      });
+      }, {withCredentials : true});
 
       if (!userName || !userPassword) {
         setIsloading(false);
         return setValid("fill Every Field");
       }
-      if (res.data.message == "user not found") {
-        setIsloading(false);
-        return setError(res.data.message);
-      }
+    
+      localStorage.setItem("TrackIt-User", JSON.stringify(res.data.user));
+      setUser(res.data.user);
 
       setIsloading(false);
-      console.log(res.data.user);
-      
-      return toDashboard("/Dashboard", { state: { data: res.data.user } });
+     
     } catch (error) {
       console.log(error);
+      return setError(error.response.data.message);
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -53,52 +50,46 @@ function Login() {
       return setValid("fill every field");
     }
 
-    console.log({
-      userName: userName,
-      password: userPassword.length,
-    });
+    if (userPassword.length < 7) {
+      return setValid("password must be 8 ");
+    }
 
-      // if (userPassword.length > 7) {
-      //  return setValid("password must be 8 ");
-      // }
+    if (userPassword !== userConfirmPassword) {
+     return setValid("password is not matching");
+    }
 
-        if (userPassword === userConfirmPassword) {
-          setValid("password is not matching");
-        }
+    setIsloading(true);
 
-          setIsloading(true);
-
-          try{
-          const res = await axios.post(`${URL}/auth/signUp`, { userName : userName , password: userPassword })
-            
-              if (res.data.message == "user name found") {
-                setIsloading(false);
-                return setValid("user name found, try another user name");
-              } 
-                if (res.data.message == "user found") {
-                  setError("user found, signing in");
-
-                  setTimeout(() => {
-                    toDashboard("/Dashboard", {
-                      state: { data: res.data.user },
-                    });
-                  }, 1000);
-                  setIsloading(false);
-                } else {
-                  toDashboard("/Dashboard", { state: { data: res.data } });
-                  setIsloading(false);
-                }
-              
-              
-            }
-            catch(error){
-              console.log(error);
-              
-            
-            }
+    try {
+      console.log("hello");
       
-    
-  }
+      const res = await axios.post(`${URL}/auth/signUp`, {
+        userName: userName,
+        password: userPassword,
+      }, {withCredentials : true});
+
+      if (res.data.message == "user name found") {
+        setIsloading(false);
+        return setValid("user name found, try another user name");
+      }
+      if (res.data.message == "user found") {
+        setError("user found, signing in");
+
+        setIsloading(false);
+      } else {
+        console.log("hello");
+        console.log(res);
+        
+        setUser(res.data);
+        localStorage.setItem("TrackIt-User", JSON.stringify(res.data));
+        setIsloading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setValid(error.response.data.message)
+      setIsloading(false)
+    }
+  };
 
   function togglePassword(e) {
     e.preventDefault();

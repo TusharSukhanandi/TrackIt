@@ -5,6 +5,9 @@ import bcrypt from "bcrypt";
 const signUp = async (req, res) => {
     
     const { userName, password } = req.body;
+
+    console.log("hello");
+    
     try {
       if (!userName || !password) {
         return res.status(400).json({ message: "All fields are required" });
@@ -33,10 +36,9 @@ const signUp = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
       }
 
-      // generateTokenAndSetToken(newUser._id, res)
-
-      console.log(newUser);
-      
+      generateTokenAndSetToken(newUser._id, res)
+newUser.password = undefined
+newUser.exercises = undefined
       
       return res.status(201).json(newUser);
 

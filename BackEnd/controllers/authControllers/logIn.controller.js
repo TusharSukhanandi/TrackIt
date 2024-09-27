@@ -7,7 +7,6 @@ import bcrypt from "bcrypt";
 
 const logIn = async (req, res) => {
     const { userName, password } = req.body;
-    console.log(req.body);
     
     try {
       if (!userName || !password) {
@@ -28,9 +27,12 @@ const logIn = async (req, res) => {
         return res.status(400).json({ message:"user name or password is incorrect" });
       }
   
-      // generateTokenAndSetToken(user._id, res)
-     user.password = null;
-      res.status(200).json({ message: "logged in", user });
+      generateTokenAndSetToken(user._id, res)
+      user.password = undefined;
+      user.exercises = undefined;
+     console.log(user);
+     
+      return res.status(200).json({ message: "logged in", user });
   
     } catch (error) {
       console.log("err at log in", error);

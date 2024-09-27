@@ -1,21 +1,21 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 
 const app = express();
-dotenv.config()
+dotenv.config();
 
 app.use(
   cors({
-    // origin : ["https://track-it-alpha-nine.vercel.app"],
+    origin: ["http://localhost:5173"],
     methods: ["POST", "GET", "PUT"],
     credentials: true,
   })
 );
 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
 import connectToDatabase from "./db/connectToDatabase.js";
 
@@ -31,58 +31,13 @@ app.get("/", (req, res) => {
   res.json("Hello World!!");
 });
 
-import authRoutes from "./routes/auth.route.js"
+import authRoutes from "./routes/auth.route.js";
 import exercisesRoutes from "./routes/exercise.route.js";
 
 app.use("/auth", authRoutes);
-app.use("/exercise", exercisesRoutes)
-
-import Exercises from "./Models/exercises.model.js";
-
-app.post("/fullData", async (req, res) => {
-  console.log("new counts updating");
-
-  const data = req.body;
-  const { date } = data;
-  const { user } = data;
-  const { exercises } = data;
-  try {
-    const check = await Exercises.find({ date, user });
-
-    if (check.length == 0) {
-      await Exercises.create({
-        user: data.user,
-        password: data.password,
-        date: data.date,
-        exercises: data.exercises,
-      });
-    } else {
-      await Exercises.findOneAndUpdate(
-        { date, user },
-        { exercises: exercises }
-      );
-    }
-    console.log("updated exe");
-  } catch (err) {
-    res.json(err);
-  }
-});
-
-app.post("/all", async (req, res) => {
-  const { user } = req.body;
-  const { month } = req.body;
-
-  try {
-    if (user != "") {
-      const check = await Exercises.find({ user, "date.month": month });
-      res.json(check);
-    }
-  } catch (err) {
-    res.json(err);
-  }
-});
+app.use("/exercise", exercisesRoutes);
 
 app.listen(1111, () => {
-  connectToDatabase()
-  console.log("sever is alive");
+  connectToDatabase();
+  console.log("sever is alive at 1111");
 });
