@@ -37,8 +37,6 @@ function Dashboard() {
   const [growth, setGrowth] = useState();
   const [count, setCount] = useState([])
 
-  const URL = "http://localhost:1111";
-
   const date = new Date();
   const day = date.getDate();
 
@@ -78,7 +76,7 @@ function Dashboard() {
         console.log(user._id);
 
         const response = await axios.get(
-          `${URL}/exercise/getBlue/` + user._id,
+          `${import.meta.env.VITE_API_URL}/exercise/getBlue/` + user._id,
           { withCredentials: true }
         );
         console.log(response.data);
@@ -107,7 +105,7 @@ function Dashboard() {
       const addNewExercice = async () => {
         try {
           const response = await axios.put(
-            `${URL}/exercise/update/${id}`,
+            `${import.meta.env.VITE_API_URL}/exercise/update/${id}`,
             updatedata,
             { withCredentials: true }
           );
@@ -128,7 +126,7 @@ function Dashboard() {
     };
     const updateCounts = async () => {
       try {
-        const response = await axios.put(`${URL}/exercise/updateCounts`, updateDate, {
+        const response = await axios.put(`${import.meta.env.VITE_API_URL}/exercise/updateCounts`, updateDate, {
           withCredentials: true,
         });
         const newArray = [...allExerciseData];
@@ -151,7 +149,7 @@ function Dashboard() {
     const fetchExercicesData = async () => {
       try {
         const response = await axios.post(
-          `${URL}/exercise/exerciseCounts`,
+          `${import.meta.env.VITE_API_URL}/exercise/exerciseCounts`,
           { month },
           { withCredentials: true }
         );
@@ -261,7 +259,7 @@ function Dashboard() {
   const handleLogOut = async () => {
     try {
       const response = await axios.post(
-        `${URL}/auth/logOut`,
+        `${import.meta.env.VITE_API_URL}/auth/logOut`,
         {},
         { withCredentials: true }
       );
@@ -325,9 +323,9 @@ function Dashboard() {
                   placeholder="count"
                   onChange={(e) => {
                     exercise.count = e.target.valueAsNumber;
-                    const newCount = [...count]; // Create a copy of the count array
-                    newCount[index] = e.target.valueAsNumber || 0; // Update the corresponding index
-                    setCount(newCount); // Set the new count array using the setter function
+                    const newCount = [...count]; 
+                    newCount[index] = e.target.valueAsNumber || 0; 
+                    setCount(newCount);
                   }}
                   value={count[index] || ''}
                 />

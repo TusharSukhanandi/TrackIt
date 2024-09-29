@@ -15,14 +15,12 @@ function Login() {
   const [valid, setValid] = useState("");
   const [isLoading, setIsloading] = useState(false);
 
-  const URL = "http://localhost:1111";
-
   const { setUser } = useUserContext();
 
   const handleUserAuth = async () => {
     setIsloading(true);
     try {
-      const res = await axios.post(`${URL}/auth/logIn`, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/logIn`, {
         userName: userName,
         password: userPassword,
       }, {withCredentials : true});
@@ -63,7 +61,7 @@ function Login() {
     try {
       console.log("hello");
       
-      const res = await axios.post(`${URL}/auth/signUp`, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signUp`, {
         userName: userName,
         password: userPassword,
       }, {withCredentials : true});
