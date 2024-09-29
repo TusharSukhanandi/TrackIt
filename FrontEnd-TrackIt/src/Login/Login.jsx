@@ -17,6 +17,8 @@ function Login() {
 
   const { setUser } = useUserContext();
 
+  console.log(import.meta.env.VITE_API_URL);
+
   const handleUserAuth = async () => {
     setIsloading(true);
     try {
@@ -58,9 +60,7 @@ function Login() {
 
     setIsloading(true);
 
-    try {
-      console.log("hello");
-      
+    try { 
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signUp`, {
         userName: userName,
         password: userPassword,

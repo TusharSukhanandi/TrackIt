@@ -39,6 +39,7 @@ function Dashboard() {
 
   const date = new Date();
   const day = date.getDate();
+  console.log(import.meta.env.VITE_API_URL);
 
   const month = date.getMonth() + 1;
   console.log(month);

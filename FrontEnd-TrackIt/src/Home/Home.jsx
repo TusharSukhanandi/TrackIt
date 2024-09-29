@@ -10,6 +10,8 @@ function Home() {
         toLogin("/login")
     }
 
+    
+
   return (
     <div className="home">
       <div className="header">TrackIt</div>
