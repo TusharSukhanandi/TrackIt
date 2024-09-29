@@ -17,8 +17,6 @@ function Login() {
 
   const { setUser } = useUserContext();
 
-  console.log(import.meta.env.VITE_API_URL || false);
-
   const handleUserAuth = async () => {
     setIsloading(true);
     try {
