@@ -65,8 +65,7 @@ function Dashboard() {
   const perfectDate = monthName + " " + day + "," + year;
 
   const { user, setUser } = useUserContext();
-  console.log(user);
-
+  
   let id = user._id;
 
   useEffect(() => {
