@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const connectToDatabase = () => {
     try{
-mongoose.connect("mongodb://127.0.0.1:27017/Trackit");
+mongoose.connect(process.env.MONGODB_URI);
 console.log("connected to database");
 
     }
