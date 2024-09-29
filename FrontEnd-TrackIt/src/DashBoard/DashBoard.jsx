@@ -35,11 +35,10 @@ function Dashboard() {
   const [lastEightExerciseName, setLastEightExerciseName] = useState("");
   const [lastEightCounts, setLastSevenCounts] = useState([]);
   const [growth, setGrowth] = useState();
-  const [count, setCount] = useState([])
+  const [count, setCount] = useState([]);
 
   const date = new Date();
   const day = date.getDate();
-  console.log(import.meta.env.VITE_API_URL);
 
   const month = date.getMonth() + 1;
   console.log(month);
@@ -127,9 +126,13 @@ function Dashboard() {
     };
     const updateCounts = async () => {
       try {
-        const response = await axios.put(`${import.meta.env.VITE_API_URL}/exercise/updateCounts`, updateDate, {
-          withCredentials: true,
-        });
+        const response = await axios.put(
+          `${import.meta.env.VITE_API_URL}/exercise/updateCounts`,
+          updateDate,
+          {
+            withCredentials: true,
+          }
+        );
         const newArray = [...allExerciseData];
         newArray[0] = response.data;
 
@@ -324,11 +327,11 @@ function Dashboard() {
                   placeholder="count"
                   onChange={(e) => {
                     exercise.count = e.target.valueAsNumber;
-                    const newCount = [...count]; 
-                    newCount[index] = e.target.valueAsNumber || 0; 
+                    const newCount = [...count];
+                    newCount[index] = e.target.valueAsNumber || 0;
                     setCount(newCount);
                   }}
-                  value={count[index] || ''}
+                  value={count[index] || ""}
                 />
               </div>
             </div>

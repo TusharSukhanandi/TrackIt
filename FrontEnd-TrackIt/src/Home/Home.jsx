@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 import ReflctionCreation from "../ReflctionCreation/ReflctionCreation";
 
 function Home() {
-    const toLogin = useNavigate();
+  const toLogin = useNavigate();
 
-    const handleLogin = () => {
-        toLogin("/login")
-    }
-
-    
+  const handleLogin = () => {
+    toLogin("/login");
+  };
 
   return (
     <div className="home">
@@ -20,10 +18,10 @@ function Home() {
           TrackIt! Lets you track your daily exercise routine.
         </div>
         <div className="loginBtn">
-            <button onClick={handleLogin}>Log-in</button>
+          <button onClick={handleLogin}>Log-in</button>
         </div>
       </main>
-      <ReflctionCreation/>
+      <ReflctionCreation />
     </div>
   );
 }
