@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken"
 
 const verifyToken = async (req, res, next) => {
 
-    const token = req.cookies.jwt;
+    const {TrackItJwt : token } = req.cookies;
 
     if(!token){
         return res.status(401).json({ error : "unauthorized access - No token provided" });
