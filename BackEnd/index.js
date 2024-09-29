@@ -2,9 +2,12 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import connectToDatabase from "./db/connectToDatabase.js";
 
 const app = express();
 dotenv.config();
+
+const PORT = process.env.PORT || 5000
 
 app.use(
   cors({
@@ -17,15 +20,6 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-import connectToDatabase from "./db/connectToDatabase.js";
-
-// mongoose.connect("mongodb+srv://tusharsukhanandi:vsdCsX3d9a1JWkNR@cluster0.khkriy9.mongodb.net/TrackIt?retryWrites=true&w=majority&appName=Cluster0")
-//   .then(() => {
-//     console.log("MongoDB connected successfully");
-//   })
-//   .catch((err) => {
-//     console.error("MongoDB connection error:", err);
-//   });
 
 app.get("/", (req, res) => {
   res.json("Hello World!!");
@@ -37,7 +31,7 @@ import exercisesRoutes from "./routes/exercise.route.js";
 app.use("/auth", authRoutes);
 app.use("/exercise", exercisesRoutes);
 
-app.listen(1111, () => {
+app.listen(PORT, () => {
   connectToDatabase();
-  console.log("sever is alive at 1111");
+  console.log("sever is alive at", PORT);
 });
