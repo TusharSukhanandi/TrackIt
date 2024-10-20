@@ -4,8 +4,9 @@
   "description": "",
   "main": "BackEnd/index.js",
   "scripts": {
-    "dev": "nodemon ./index.js",
-    "start": "node ./index.js"
+    "dev": "nodemon BackEnd/index.js",
+    "start": "node BackEnd/index.js",
+    "build" : "npm install && npm install --prefix FrontEnd-TrackIt && npm run build --prefix FrontEnd-TrackIt"
   },
   "type": "module",
   "keywords": [],
