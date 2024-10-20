@@ -6,7 +6,6 @@ const signUp = async (req, res) => {
     
     const { userName, password } = req.body;
 
-    console.log("hello");
     
     try {
       if (!userName || !password) {

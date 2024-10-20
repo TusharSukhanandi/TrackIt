@@ -73,9 +73,6 @@ function Login() {
 
         setIsloading(false);
       } else {
-        console.log("hello");
-        console.log(res);
-        
         setUser(res.data);
         localStorage.setItem("TrackIt-User", JSON.stringify(res.data));
         setIsloading(false);

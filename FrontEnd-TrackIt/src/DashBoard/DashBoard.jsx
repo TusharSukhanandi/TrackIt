@@ -40,9 +40,9 @@ function Dashboard() {
   const date = new Date();
   const day = date.getDate();
 
-  const month = date.getMonth() + 1;
-  console.log(month);
 
+  const month = date.getMonth() + 1;
+ 
   const months = [
     "January",
     "February",
@@ -71,15 +71,12 @@ function Dashboard() {
   useEffect(() => {
     const fetchBluePrintOfExercices = async () => {
       try {
-        console.log(id);
-        console.log(user._id);
+        (user._id);
 
         const response = await axios.get(
           `${import.meta.env.VITE_API_URL}/exercise/getBlue/` + user._id,
           { withCredentials: true }
         );
-        console.log(response.data);
-
         setData(response.data);
       } catch (error) {
         console.log(error);
@@ -132,9 +129,8 @@ function Dashboard() {
             withCredentials: true,
           }
         );
-        const newArray = [...allExerciseData];
-        newArray[0] = response.data;
-
+        const newArray = [response.data, ...allExerciseData];
+      
         SetAllExerciseData(newArray);
       } catch (error) {
         console.log(error);

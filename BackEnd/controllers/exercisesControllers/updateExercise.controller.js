@@ -6,9 +6,6 @@ const updateExercise = async (req, res) => {
         const { id } = req.params;
         const { exercises } = req.body;
     
-        console.log({id, exercises});
-        
-
         const updatedDocument = await User.findByIdAndUpdate(
           id,
           { exercises: exercises },

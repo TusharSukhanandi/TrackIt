@@ -14,8 +14,7 @@ const updateCounts = async (req, res) => {
         { new: true }
       );
   
-      console.log({ updateCounts });
-  
+    
       if (updateCounts) {
         return res.status(200).json(updateCounts);
       }
