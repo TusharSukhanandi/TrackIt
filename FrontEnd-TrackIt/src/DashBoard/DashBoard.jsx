@@ -40,9 +40,8 @@ function Dashboard() {
   const date = new Date();
   const day = date.getDate();
 
-
   const month = date.getMonth() + 1;
- 
+
   const months = [
     "January",
     "February",
@@ -65,13 +64,13 @@ function Dashboard() {
   const perfectDate = monthName + " " + day + "," + year;
 
   const { user, setUser } = useUserContext();
-  
+
   let id = user._id;
 
   useEffect(() => {
     const fetchBluePrintOfExercices = async () => {
       try {
-        (user._id);
+        user._id;
 
         const response = await axios.get(
           `${import.meta.env.VITE_API_URL}/exercise/getBlue/` + user._id,
@@ -129,9 +128,16 @@ function Dashboard() {
             withCredentials: true,
           }
         );
-        const newArray = [response.data, ...allExerciseData];
-      
-        SetAllExerciseData(newArray);
+
+        if (allExerciseData[0].date.day == response.data.date.day) {
+          let newArray = allExerciseData;
+          newArray.shift();
+          newArray = [response.data, ...allExerciseData];
+          SetAllExerciseData(newArray);
+        } else {
+          let newArray = [response.data, ...allExerciseData];
+          SetAllExerciseData(newArray);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -178,7 +184,7 @@ function Dashboard() {
       const lastEight = allExerciseData.slice(0, 7).reverse();
 
       lastEight.map((each) => {
-        if (each.exercises[index] !== undefined) {
+        if (each?.exercises[index] !== undefined) {
           prevDate.push(each.date.day);
           setlastSevenDates(prevDate);
 
@@ -380,9 +386,9 @@ function Dashboard() {
                   allExerciseData &&
                   allExerciseData.map((oneData, index) => (
                     <div key={index}>
-                      <div className="dates">{oneData.date.day}</div>
+                      <div className="dates">{oneData?.date?.day}</div>
                       <div className="counts">
-                        {oneData.exercises.map((exercise, index) => (
+                        {oneData?.exercises.map((exercise, index) => (
                           <div className="count" key={index}>
                             {exercise.count}
                           </div>
